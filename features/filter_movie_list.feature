@@ -23,10 +23,18 @@ Background: movies have been added to database
   
 Scenario: restrict to movies with 'PG' or 'R' ratings
   # enter step(s) to check the 'PG' and 'R' checkboxes
+  When I check the following ratings: PG, R
   # enter step(s) to uncheck all other checkboxes
+  And I uncheck the following ratings: G, PG-13 
   # enter step to "submit" the search form on the homepage
+  And I press "Search TMDb"
   # enter step(s) to ensure that PG and R movies are visible
+  then should be on the RottenPotatoes home page
+  and I should see movies 'PG'
+  and I should see movies 'R'
   # enter step(s) to ensure that other movies are not visible
+  and I should not see movies 'G'
+  and I should not see movies 'PG-13'
 
 Scenario: no ratings selected
   # see assignment
